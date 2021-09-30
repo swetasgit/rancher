@@ -41,6 +41,13 @@ resource "helm_release" "rancher_server" {
     name  = "replicas"
     value = var.rancher_replicas
   }
+  
+   set {
+    name  = "bootstrapPassword"
+    value = "admin"
+  }
+  
+  
 
   dynamic set {
     for_each = var.rancher_server.chart_set
