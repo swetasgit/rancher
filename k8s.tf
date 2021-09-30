@@ -120,6 +120,11 @@ resource "kubernetes_job" "create_cattle_system_ns" {
 }
 resource "rancher2_bootstrap" "admin" {
   provider = "rancher2.bootstrap"
+  
+    depends_on = [
+    helm_release.rancher,
+  ]
+  
   password  = "O@hCW4@N2iGeO0fdMPI"
   telemetry = true
 }
