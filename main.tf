@@ -42,11 +42,7 @@ resource "helm_release" "rancher_server" {
     value = var.rancher_replicas
   }
   
-   set {
-    name  = "bootstrapPassword"
-    value = "O@hCW4@N2iGeO0fdMY1L"
-  }
-  
+    
   
 
   dynamic set {
