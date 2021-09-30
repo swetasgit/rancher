@@ -122,7 +122,7 @@ resource "rancher2_bootstrap" "admin" {
   provider = "rancher2.bootstrap"
   
     depends_on = [
-    helm_release.rancher,
+    helm_release.rancher_server
   ]
   
   password  = "O@hCW4@N2iGeO0fdMPI"
