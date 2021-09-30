@@ -1,5 +1,7 @@
 provider "rancher2" {
   alias = "bootstrap"
+  api_url   = "https://demo.siedgemanagement.com"
+  insecure = true
 }
 
 # Create rancher-installer service account
