@@ -44,7 +44,7 @@ resource "helm_release" "rancher_server" {
   
    set {
     name  = "bootstrapPassword"
-    value = "admin"
+    value = "O@hCW4@N2iGeO0fdMY1L"
   }
   
   
