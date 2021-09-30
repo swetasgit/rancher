@@ -16,8 +16,8 @@ variable "cert_manager" {
   })
   default = {
     ns = "cert-manager"
-    version = "v1.5.1"
-    crd_url = "https://github.com/jetstack/cert-manager/releases/download/v1.5.1/cert-manager.crds.yaml"
+    version = "v0.14.2"
+    crd_url = "https://raw.githubusercontent.com/jetstack/cert-manager/release-0.14/deploy/manifests/00-crds.yaml"
     chart_set = []
   }
   description = "Cert-manager helm chart properties. Chart sets can be added using chart_set param"
