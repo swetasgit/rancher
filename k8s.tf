@@ -1,4 +1,5 @@
 provider "rancher2" {
+  alias = "bootstrap"
   api_url = var.rancher_hostname
   bootstrap = true
 }
@@ -117,11 +118,7 @@ resource "kubernetes_job" "create_cattle_system_ns" {
   }
 }
 resource "rancher2_bootstrap" "admin" {
-
-  depends_on = [
-    helm_release.rancher_server,
-  ]
-
+  provider = "rancher2.bootstrap"
   password  = "O@hCW4@N2iGeO0fdMPI"
   telemetry = true
 }
