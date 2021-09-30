@@ -1,3 +1,9 @@
+provider "rancher2" {
+  alias = "bootstrap" 
+  api_url = var.rancher_hostname
+  bootstrap = true
+}
+
 # Create rancher-installer service account
 resource "kubernetes_service_account" "rancher_installer" {
   metadata {
@@ -110,4 +116,14 @@ resource "kubernetes_job" "create_cattle_system_ns" {
   provisioner "local-exec" {
     command = "sleep 30s"
   }
+}
+resource "rancher2_bootstrap" "admin" {
+  provider = rancher2.bootstrap
+
+  depends_on = [
+    helm_release.rancher_server,
+  ]
+
+  password  = "O@hCW4@N2iGeO0fdMPI"
+  telemetry = true
 }
