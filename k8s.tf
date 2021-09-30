@@ -1,4 +1,4 @@
-provider "rancher2" {
+provider "rancher/rancher2" {
   api_url = var.rancher_hostname
   bootstrap = true
 }
