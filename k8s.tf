@@ -85,7 +85,7 @@ resource "kubernetes_job" "create_cert_manager_ns" {
 
 # Create cattle-system namespace for Rancher
 resource "kubernetes_job" "create_cattle_system_ns" {
-  depends_on = [kubernetes_job.create_cert_manager_ns]
+  depends_on = [helm-release.rancher_server]
 
   metadata {
     name      = "create-cattle-system-ns"
@@ -112,12 +112,31 @@ resource "kubernetes_job" "create_cattle_system_ns" {
   }
 }
 
-resource "null_resource" "kubectl" {
-  provisioner "local-exec" {
-    command = "kubectl -n cattle-system exec $(kubectl --kubeconfig $KUBECONFIG -n cattle-system get pods -l app=rancher | grep '1/1' | head -1 | awk '{ print $1 }') -- reset-password Rancherpass --kubeconfig $KUBECONFIG"
-    interpreter = ["/bin/bash", "-c"]
-    environment = {
-      KUBECONFIG = "/etc/rancher/k3s/k3s.yaml"
+# Create cattle-system namespace for Rancher
+resource "kubernetes_job" "reset_password" {
+  depends_on = [kubernetes_job.create_cert_manager_ns]
+
+  metadata {
+    name      = "reset-password"
+    namespace = "kube-system"
   }
-}
+  spec {
+    template {
+      metadata {}
+      spec {
+        container {
+          name    = "kubectl"
+          image   = var.kubectl_image
+          command = ["kubectl --kubeconfig /etc/rancher/k3s/k3s.yaml -n cattle-system exec $(kubectl --kubeconfig /etc/rancher/k3s/k3s.yaml -n cattle-system get pods -l app=rancher | grep '1/1' | head -1 | awk '{ print $1 }') -- reset-password Rancherpass"]
+        }
+        host_network                    = true
+        automount_service_account_token = true
+        service_account_name            = kubernetes_service_account.rancher_installer.metadata[0].name
+        restart_policy                  = "Never"
+      }
+    }
+  }
+  provisioner "local-exec" {
+    command = "sleep 30s"
+  }
 }
