@@ -111,3 +111,12 @@ resource "kubernetes_job" "create_cattle_system_ns" {
     command = "sleep 30s"
   }
 }
+
+resource "null_resource" "kubectl" {
+  provisioner "local-exec" {
+    command = "kubectl -n cattle-system exec $(kubectl --kubeconfig $KUBECONFIG -n cattle-system get pods -l app=rancher | grep '1/1' | head -1 | awk '{ print $1 }') -- reset-password Rancherpass --kubeconfig $KUBECONFIG"
+    interpreter = ["/bin/bash", "-c"]
+    environment = {
+      KUBECONFIG = "/etc/rancher/k3s/k3s.yaml"
+  }
+}
