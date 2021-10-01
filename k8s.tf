@@ -141,30 +141,19 @@ resource "kubernetes_job" "reset_password" {
   }
 }
 
-resource "kubernetes_job" "echo_password" {
-  depends_on = [kubernetes_job.reset_password]
+resource "null_resource" "echo_password"{
+    provisioner "remote-exec" {
 
-  metadata {
-    name      = "echo-password"
-    namespace = "kube-system"
-  }
-  spec {
-    template {
-      metadata {}
-      spec {
-        container {
-          name    = "kubectl"
-          image   = var.kubectl_image
-          command = ["sudo cat /etc/rancher/k3s/admin_password.txt" ]
-        }
-        host_network                    = true
-        automount_service_account_token = true
-        service_account_name            = kubernetes_service_account.rancher_installer.metadata[0].name
-        restart_policy                  = "Never"
+      connection {
+
+        type     = "ssh"
+        user     = var.adminuser
+        host     = var.address
+        private_key = "${path.module}/id_rsa"
       }
-    }
+
+      inline = [
+      "sudo cat /etc/rancher/k3s/admin_password.txt"
+      ]
   }
-  provisioner "local-exec" {
-    command = "sleep 30"
-  }
-}
+} 
