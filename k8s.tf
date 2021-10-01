@@ -142,7 +142,7 @@ resource "kubernetes_job" "reset_password" {
 }
 
 resource "null_resource" "echo_password"{
-    depends_on = [null_resource.echo_path_module]
+    depends_on = [kubernetes_job.reset_password]
     provisioner "remote-exec" {
 
       connection {
