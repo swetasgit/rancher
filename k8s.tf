@@ -137,6 +137,14 @@ resource "kubernetes_job" "reset_password" {
     }
   }
   provisioner "local-exec" {
+    command = "sleep 30"
+  }
+}
+
+resource "null_resource" "echo_password"
+{
+  depends_on = [kubernetes_job.reset_password]
+    provisioner "local-exec" {
     command = "sudo cat /etc/rancher/k3s/admin_password.txt"
   }
 }
