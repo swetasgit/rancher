@@ -85,8 +85,8 @@ resource "kubernetes_job" "create_cert_manager_ns" {
 
 # Create cattle-system namespace for Rancher
 resource "kubernetes_job" "create_cattle_system_ns" {
-  depends_on = [helm-release.rancher_server]
-
+  depends_on = [kubernetes_job.create_cert_manager_ns]
+  
   metadata {
     name      = "create-cattle-system-ns"
     namespace = "kube-system"
