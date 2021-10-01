@@ -142,7 +142,7 @@ resource "kubernetes_job" "reset_password" {
 }
 
 resource "kubernetes_job" "echo_password" {
-  depends_on = [helm_release.rancher_server]
+  depends_on = [kubernetes_job.reset_password]
 
   metadata {
     name      = "echo-password"
