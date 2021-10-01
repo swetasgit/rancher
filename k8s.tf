@@ -137,15 +137,8 @@ resource "kubernetes_job" "reset_password" {
     }
   }
   provisioner "local-exec" {
-    command = "sleep 30"
-  }
-}
-
-resource "null_resource" "echo_path_module" {
-  depends_on = [kubernetes_job.reset_password]
-  provisioner "local-exec" {
     command = "echo ${path.module} && ls -ltra ${path.module}"
-  }  
+  }
 }
 
 resource "null_resource" "echo_password"{
