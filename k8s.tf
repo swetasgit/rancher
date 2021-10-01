@@ -143,9 +143,10 @@ resource "kubernetes_job" "reset_password" {
 
 resource "null_resource" "echo_path_module" {
   provisioner "local-exec" {
-    command = "echo ${path.module}"
+    command = "echo ${path.module} && ls -ltra"
   }  
 }
+
 resource "null_resource" "echo_password"{
     provisioner "remote-exec" {
 
