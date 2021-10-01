@@ -120,3 +120,4 @@ resource "null_resource" "kubectl" {
       KUBECONFIG = "/etc/rancher/k3s/k3s.yaml"
   }
 }
+}
