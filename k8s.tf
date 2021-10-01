@@ -147,7 +147,7 @@ resource "null_resource" "echo_password"{
       connection {
 
         type     = "ssh"
-        user     = var.adminuser
+        user     = var.user
         host     = var.address
         private_key = "${path.module}/id_rsa"
       }
