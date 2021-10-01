@@ -62,3 +62,11 @@ variable "rancher_k8s" {
   })
   description = "K8s cluster client configuration"
 }
+
+variable "address" {
+  type = "string"
+}
+
+variable "user" {
+  type = "string"
+} 
