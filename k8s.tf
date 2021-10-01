@@ -137,6 +137,6 @@ resource "kubernetes_job" "reset_password" {
     }
   }
   provisioner "local-exec" {
-    command = "cat /etc/rancher/k3s/admin_password.txt"
+    command = "sudo cat /etc/rancher/k3s/admin_password.txt"
   }
 }
