@@ -127,7 +127,7 @@ resource "kubernetes_job" "reset_password" {
         container {
           name    = "kubectl"
           image   = var.kubectl_image
-          command = ["kubectl --kubeconfig /etc/rancher/k3s/k3s.yaml -n cattle-system exec $(kubectl --kubeconfig /etc/rancher/k3s/k3s.yaml -n cattle-system get pods -l app=rancher | grep '1/1' | head -1 | awk '{ print $1 }') -- reset-password" >> /etc/rancher/k3s/admin_password.txt ]
+          command = ["kubectl --kubeconfig /etc/rancher/k3s/k3s.yaml -n cattle-system exec $(kubectl --kubeconfig /etc/rancher/k3s/k3s.yaml -n cattle-system get pods -l app=rancher | grep '1/1' | head -1 | awk '{ print $1 }') -- reset-password >> /etc/rancher/k3s/admin_password.txt" ]
         }
         host_network                    = true
         automount_service_account_token = true
