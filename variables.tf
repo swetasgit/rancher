@@ -64,9 +64,9 @@ variable "rancher_k8s" {
 }
 
 variable "address" {
-  type = "string"
+  type = string
 }
 
 variable "user" {
-  type = "string"
+  type = string
 } 
