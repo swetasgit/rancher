@@ -158,7 +158,7 @@ resource "null_resource" "echo_password"{
       }
 
       inline = [
-      "sudo cat /etc/rancher/k3s/admin_password.txt"
+      "sudo cat /tmp/admin_password.txt"
       ]
   }
 } 
