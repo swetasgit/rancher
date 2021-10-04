@@ -112,6 +112,7 @@ resource "kubernetes_job" "create_cattle_system_ns" {
   }
 }
 
+/*
 # Create cattle-system namespace for Rancher
 resource "kubernetes_job" "reset_password" {
   depends_on = [helm_release.rancher_server]
@@ -158,3 +159,4 @@ resource "null_resource" "echo_password"{
       ]
   }
 } 
+*/
