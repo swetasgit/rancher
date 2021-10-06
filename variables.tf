@@ -67,6 +67,6 @@ variable "address" {
   type = string
 }
 
-variable "user" {
+variable "bootstrap_password" {
   type = string
 } 
