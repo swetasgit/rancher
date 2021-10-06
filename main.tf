@@ -41,7 +41,11 @@ resource "helm_release" "rancher_server" {
     name  = "replicas"
     value = var.rancher_replicas
   }
-  
+
+  set {
+    name  = "bootstrapPassword"
+    value = "admin123"
+  }
     
   
 
